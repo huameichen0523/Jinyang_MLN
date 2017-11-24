@@ -1,0 +1,16 @@
+placeOfInterest(PI1) 
+placeOfInterest(PI2) 
+placeOfInterest(PI3) 
+genericLocation(PG1)
+genericLocation(PG2) 
+genericLocation(PG3)
+
+suspicious(V1)
+suspicious(V2)
+
+
+meetAt(V1,V2,PG1)
+meetAt(V1,V2,PI1)
+meetAt(V3,V4,PG2)
+meetAt(V3,V4,PI2)
+

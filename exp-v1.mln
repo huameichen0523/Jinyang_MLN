@@ -1,0 +1,79 @@
+overlaps(vehicle, vehicle)
+meets(vehicle, vehicle)
+proximity(vehicle,vehicle)
+collusion(vehicle,vehicle)
+stopped(vehicle)
+isInurban(vehicle)
+isNearfrombase(vehicle)
+suspicious(vehicle)
+isInrural(vehicle)
+isfarfrombase(vehicle)
+ID(vehicle)
+alarm(vehicle)
+before(vehicle, vehicle)
+humint(vehicle,Record!)
+isIn(vehicle, Environment!)
+Awayfromarmory(vehicle)
+
+Environment={urban, nearfrombase,rural, farfrombase}
+Record={clear,sellingarm}
+
+3 overlaps(v,y)<=>overlaps(y,v)
+3 meets(v,y) <=> meets(y,v)
+3 proximity(v,y) <=>proximity(y,v)
+3 collusion(v,y)<=> collusion (y,v)
+2.4 stopped(v)^(isIn(v,urban) v isIn(v,nearfrombase))=>suspicious(v)
+1.2 stopped(v)^(isIn(v,rural) v isIn(v,farfrombase))=>!suspicious(v)
+2.4 !Awayfromarmory(v)=>suspicious(v)
+1.8 humint(v,sellingarm) =>suspicious(v)
+0.6 humint(v,clear) =>!suspicious(v)
+3 !ID(v) => alarm(v)
+3 suspicious(v)=>alarm(v)
+0.6 !suspicious(v)=>!alarm(v)
+3 !proximity(v,y)=>!collusion(v,y)
+0.6 (overlaps(v,y) v meets(v,y))^proximity(v,y)=>collusion(v,y)
+3 suspicious(v)^suspicious(y)^(overlaps(v,y) v meets(v,y))^proximity(v,y)=>collusion(v,y)
+1.8 (!stopped(v)) v  (!stopped(y)) =>!collusion(v,y)
+2.4 before(v,y)^proximity(v,y)=>!collusion(v,y)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

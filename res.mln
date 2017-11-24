@@ -1,0 +1,40 @@
+// domain declarations
+Environment={urban, nearfrombase,rural, farfrombase}
+Record={clear,sellingarm}
+
+// predicate declarations
+overlaps(vehicle, vehicle)
+meets(vehicle, vehicle)
+Awayfromarmory(vehicle)
+proximity(vehicle, vehicle)
+suspicious(vehicle)
+collusion(vehicle, vehicle)
+isNearfrombase(vehicle)
+alarm(vehicle)
+humint(vehicle, Record!)
+stopped(vehicle)
+isInurban(vehicle)
+isIn(vehicle, Environment!)
+isfarfrombase(vehicle)
+isInrural(vehicle)
+ID(vehicle)
+before(vehicle, vehicle)
+
+// formulas
+0.126906    overlaps(v, y) <=> overlaps(y, v)
+0.887466    meets(v, y) <=> meets(y, v)
+0.244177    proximity(v, y) <=> proximity(y, v)
+0.336923    collusion(v, y) <=> collusion(y, v)
+0.289076    (stopped(v) ^ (isIn(v, urban) v isIn(v, nearfrombase))) => suspicious(v)
+0.518201    (stopped(v) ^ (isIn(v, rural) v isIn(v, farfrombase))) => !suspicious(v)
+0.313730    !Awayfromarmory(v) => suspicious(v)
+2.019578    humint(v, sellingarm) => suspicious(v)
+0.422751    humint(v, clear) => !suspicious(v)
+-0.550185   !ID(v) => alarm(v)
+0.571763    suspicious(v) => alarm(v)
+1.461008    !suspicious(v) => !alarm(v)
+1.430577    !proximity(v, y) => !collusion(v, y)
+-0.959387   ((overlaps(v, y) v meets(v, y)) ^ proximity(v, y)) => collusion(v, y)
+0.000000    (suspicious(v) ^ suspicious(y) ^ (overlaps(v, y) v meets(v, y)) ^ proximity(v, y)) => collusion(v, y)
+0.253329    (!stopped(v) v !stopped(y)) => !collusion(v, y)
+0.000000    (before(v, y) ^ proximity(v, y)) => !collusion(v, y)

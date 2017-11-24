@@ -1,0 +1,119 @@
+from Tkinter import *
+import PIL.Image
+import tkMessageBox
+import tkFont,tkFileDialog
+
+# This part is designed for the menu for the MLN
+def donothing():
+   # filewin = Toplevel(root)
+   root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("db files","*.db"),("jpeg files","*.jpg"),("all files","*.*")))
+   print(root.filename)
+   # button = Button(filewin, text="Do nothing button")
+   # button.pack()
+root = Tk(className='IFT MLN Tool Box')
+var = IntVar()
+
+class  MyMenu():
+
+   def __init__(self,root):
+# initialization of menu bar
+   self.menubar=Menu(root)
+   
+
+
+
+menubar = Menu(root)
+filemenu = Menu(menubar, tearoff=0)
+filemenu.add_command(label="New", command=donothing)
+filemenu.add_command(label="Open", command=donothing)
+filemenu.add_command(label="Save", command=donothing)
+filemenu.add_command(label="Save as...", command=donothing)
+filemenu.add_command(label="Close", command=donothing)
+filemenu.add_separator()
+filemenu.add_command(label="Exit", command=root.quit)
+menubar.add_cascade(label="File", menu=filemenu)
+
+editmenu = Menu(menubar, tearoff=0)
+editmenu.add_command(label="Undo", command=donothing)
+editmenu.add_separator()
+editmenu.add_command(label="Cut", command=donothing)
+editmenu.add_command(label="Copy", command=donothing)
+editmenu.add_command(label="Paste", command=donothing)
+editmenu.add_command(label="Delete", command=donothing)
+editmenu.add_command(label="Select All", command=donothing)
+menubar.add_cascade(label="Edit", menu=editmenu)
+
+optionmenu = Menu(menubar, tearoff=0)
+submenu= Menu(optionmenu)
+submenu.add_command(label="MLN")
+submenu.add_command(label='BLN')
+optionmenu.add_cascade(label="Model Selection",menu=submenu)
+optionmenu.add_command(label="Data-Driven", command=donothing)
+optionmenu.add_command(label="Model-Driven", command=donothing)
+menubar.add_cascade(label="Option",menu=optionmenu)
+
+helpmenu = Menu(menubar, tearoff=0)
+helpmenu.add_command(label="Help instruction", command=donothing)
+helpmenu.add_command(label="About...", command=donothing)
+menubar.add_cascade(label="Help", menu=helpmenu)
+
+root.config(menu=menubar)
+
+root.geometry("1200x600")
+
+# Grid.rowconfigure(root, 0, weight=1)
+# Grid.columnconfigure(root, 0, weight=1)
+frame=Frame(root)
+frame.grid(row=0, column=3, sticky='NEWS')
+# grid=Frame(frame)
+# grid.grid(sticky=N+S+E+W, column=0, row=0, columnspan=2)
+# Grid.rowconfigure(frame, 7, weight=1)
+# Grid.columnconfigure(frame, 0, weight=1)
+helv36 = tkFont.Font(family='Helvetica', size=20, weight=tkFont.BOLD)
+row = 0
+lab1 = Label(frame, text= "MLN Reason Engine",font=helv36)
+lab1.grid(row = row, column=1,columnspan=2,sticky='N')
+# lab1.grid(row=row,column=0,sticky=W)
+
+photo_tmp = PIL.Image.open('a.gif')
+photo_tmp = photo_tmp.resize((45,45))
+photo_tmp.save("a.gif",'gif')
+photo = PhotoImage(file='b.gif')
+lab2=Label(frame,image=photo)
+lab2.grid(row=row,column=0,columnspan=1,rowspan=1,sticky=W,padx=5,pady=5)
+
+
+row +=1
+text_load= Text(frame,background='yellow')
+text_load.insert(INSERT,'DATA description...')
+text_load.grid(row=row,column=0, rowspan=1,columnspan=2,sticky="NEWS")
+
+text_res= Text(frame,background='yellow')
+text_res.insert(INSERT,'Inference Result...')
+text_res.grid(row=row,column=2, rowspan=1,columnspan=2,sticky="NEWS")
+
+
+row +=1
+btn2=Button(frame,text="Inference")
+btn2.grid(row=row,sticky=W)
+btn3=Button(frame, text="Save")
+btn3.grid(row=row,column =3, sticky = E)
+
+row +=1
+# This part is for display text file.
+text1 = Text(frame,background="green", foreground="black",height=5)
+text1.insert(INSERT,'Running...')
+text1.grid(row=row,column=0, rowspan=2, columnspan =4, sticky='EW' )
+# yscrollbar=Scrollbar(frame, orient=VERTICAL, command=text1.yview)
+
+
+
+checkbutton = Checkbutton(frame, text='Save Log File', variable=var)
+checkbutton.grid(columnspan=2, sticky=W)
+
+
+root.mainloop()
+
+
+
+

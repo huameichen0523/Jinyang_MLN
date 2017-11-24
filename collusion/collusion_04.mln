@@ -1,0 +1,19 @@
+// specify how to get suspicious
+placeOfInterest(place) //needs to be a userdefined loaction
+genericLocation(place) //any location in a the googleAPI database
+suspicious(vehicle) //the vehicle has intelligence of being suspicious
+startAt(place,vehicle) // vehicle starts from place
+passBy(place,vehicle) // vehicle passed by place
+stopBy(place,vehicle) // vehicle stopped by place
+meetAt(vehicle, vehicle, place) // /two vehicles are near the location for a defined amount of time
+warning(vehicle,vehicle,place) // warning issued for vehicle1, vehicle2 at place
+
+
+
+0.8 startAt(p,v)^placeOfInterest(p) => suspicious(v)
+0.85 startAt(p,v)^placeOfInterest(p)^passBy(p2,v)^placeOfInterest(p2) => suspicious(v)
+0.9 startAt(p,v)^placeOfInterest(p)^stopBy(p2,v)^placeOfInterest(p2) => suspicious(v)
+1 suspicious(v1)^suspicious(v2)^placeOfInterest(p)^meetAt(v1,v2,p) => warning(v1,v2,p)
+1 meetAt(v11,v2,p) <=> meetAt(v2,v11,p)
+1 warning(v11,v22,p) <=> warning(v22,v11,p)
+

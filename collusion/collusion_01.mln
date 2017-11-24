@@ -1,0 +1,10 @@
+placeOfInterest(place) //needs to be a userdefined loaction
+genericLocation(place) //any location in a the googleAPI database
+meetAt(vehicle, vehicle, place) // /two vehicles are near the location for a defined amount of time
+warning(vehicle,vehicle,place) // warning issued for vehicle1, vehicle2 at place
+suspicious(vehicle) //the vehicle has intelligence of being suspicious
+
+1.0 suspicious(v1)^suspicious(v2)^placeOfInterest(p)^meetAt(v1,v2,p) => warning(v1,v2,p)
+1.0 meetAt(v1,v2,p) <=> meetAt(v2,v1,p)
+1.0 warning(v1,v2,p) <=> warning(v2,v1,p)
+
